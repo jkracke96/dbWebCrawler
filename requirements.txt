@@ -1,0 +1,7 @@
+requests
+json2html
+Flask
+#pandas
+#firebase_admin
+pymongo
+python-dotenv

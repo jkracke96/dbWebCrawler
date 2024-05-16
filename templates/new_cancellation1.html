@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block nav_item1 %}"nav-item active"{% endblock %}
+{% block content %}
+<form method="POST">
+    <br>
+    <br>
+    <div class="input-group mb-3" style="max-width:300px">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Station</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01" name="stations">
+        <option selected>Choose...</option>
+        <option value="Koeln Hbf">Köln Hbf</option>
+        <option value="Frankfurt(Main)Hbf">Frankfurt (Main) Hbf</option>
+        <option value="Muenchen Hbf">München Hbf</option>
+        <option value="Berlin Hbf">Berlin Hbf</option>
+        <option value="Hamburg Hbf">Hamburg Hbf</option>
+      </select>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
+

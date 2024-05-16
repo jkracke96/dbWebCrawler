@@ -1,0 +1,7 @@
+{
+  "koeln": ["Koeln Hbf", "K%F6ln%20Hbf%238000207"],
+  "frankfurt": ["Frankfurt(Main)Hbf", "Frankfurt(Main)Hbf%238000105"],
+  "muenchen": ["Muenchen Hbf", "M%FCnchen%20Hbf%238000261"],
+  "berlin": ["Berlin Hbf", "Berlin%20Hbf%238011160"],
+  "hamburg": ["Hamburg Hbf", "Hamburg%20Hbf%238002549"]
+}

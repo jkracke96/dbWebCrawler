@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block nav_item1 %}"nav-item active"{% endblock %}
+{% block content %}
+<h1>Hey,  which one is your home station?</h1>
+<h2>The next cancelled connection arriving at the chosen station will be displayed</h2>
+<br><br>
+<form action="/findCancellation/koeln">
+    <input type="submit" value="Köln Hbf" />
+</form>
+<form action="/findCancellation/frankfurt">
+    <input type="submit" value="Frankfurt (Main) Hbf" />
+</form>
+<form action="/findCancellation/muenchen">
+    <input type="submit" value="München Hbf" />
+</form>
+</form>
+<form action="/findCancellation/berlin">
+    <input type="submit" value="Berlin Hbf" />
+</form>
+</form>
+<form action="/findCancellation/hamburg">
+    <input type="submit" value="Hamburg Hbf" />
+</form>
+</form>
+<form action="/findCancellation">
+    <input type="submit" value="Find previous cancellation" />
+</form>
+{% endblock %}
+
