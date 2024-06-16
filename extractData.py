@@ -68,10 +68,10 @@ def getHTMLText(station, date, hour, minute):
         time = f"{int(hour) + 2 + k}:{minute}"
 
         # set up custom URL
-        # URL = f"https://reiseauskunft.bahn.de/bin/bhftafel.exe/dn?ld=43111&protocol=https:&rt=1&input={station}&" \
-        # f"boardType=arr&time={hour}:{minute}%2B60&productsFilter=11111&&&date={date}&&selectDate=&start=yes"
-        URL = f"https://reiseauskunft.bahn.de/bin/bhftafel.exe/dn?ld=43111&protocol=https:&rt=1&input={station}&" \
-              f"boardType=arr&time={time}%2B60&productsFilter=11111&&&date={date}&&selectDate=&start=yes"
+        URL = f"https://reiseauskunft.bahn.de/bin/bhftafel.exe/" \
+              f"dn?ld=43111&protocol=https:&rt=1&input={station}&" \
+              f"boardType=arr&time={time}%2B60&productsFilter=11111&&&" \
+              f"date={date}&&selectDate=&start=yes"
         print(URL)
 
         # get templates and find first cancelled train
