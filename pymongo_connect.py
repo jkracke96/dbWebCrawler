@@ -7,6 +7,7 @@ import logging
 from dotenv import load_dotenv
 load_dotenv()
 
+
 class MongoDB:
     def __init__(self):
         self.username = urllib.parse.quote_plus(str(os.getenv('MONGO_USER')))
@@ -35,9 +36,11 @@ class MongoDB:
         # insert new cancellation
         db.insert_one(input_dict)
 
-
-    def read_from_db(self, date, station):
-        db = self.get_db()
+    def read_from_db(self, date, station, db=None):
+        if db:
+            pass
+        else:
+            db = self.get_db()
 
         # format id for search
         date = str(stringConverter.convertDate(date))
