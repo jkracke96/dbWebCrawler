@@ -16,12 +16,9 @@ class MongoDB:
         self.db_name = str(os.getenv('MONGO_DB_NAME'))
         self.collection = str(os.getenv('MONGO_COLLECTION'))
 
-    def get_db(self, client=None):
+    def get_db(self):
         # Create a new client and connect to the server
-        if client:
-            pass
-        else:
-            client = MongoClient(self.uri, server_api=ServerApi('1'))
+        client = MongoClient(self.uri, server_api=ServerApi('1'))
         db = client[self.db_name]
         db = db[self.collection]
         return db
