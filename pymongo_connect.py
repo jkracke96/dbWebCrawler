@@ -7,6 +7,7 @@ import logging
 from dotenv import load_dotenv
 load_dotenv()
 
+
 class MongoDB:
     def __init__(self):
         self.username = urllib.parse.quote_plus(str(os.getenv('MONGO_USER')))
@@ -15,9 +16,12 @@ class MongoDB:
         self.db_name = str(os.getenv('MONGO_DB_NAME'))
         self.collection = str(os.getenv('MONGO_COLLECTION'))
 
-    def get_db(self):
+    def get_db(self, client=None):
         # Create a new client and connect to the server
-        client = MongoClient(self.uri, server_api=ServerApi('1'))
+        if client:
+            pass
+        else:
+            client = MongoClient(self.uri, server_api=ServerApi('1'))
         db = client[self.db_name]
         db = db[self.collection]
         return db
@@ -35,9 +39,11 @@ class MongoDB:
         # insert new cancellation
         db.insert_one(input_dict)
 
-
-    def read_from_db(self, date, station):
-        db = self.get_db()
+    def read_from_db(self, date, station, db=None):
+        if db:
+            pass
+        else:
+            db = self.get_db()
 
         # format id for search
         date = str(stringConverter.convertDate(date))
