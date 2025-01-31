@@ -44,7 +44,7 @@ class MongoDB:
 
         # format id for search
         date = str(stringConverter.convertDate(date))
-        key = date + station + " "
+        key = date + station
         my_query = {"_id": key}
 
         # read data

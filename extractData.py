@@ -1,6 +1,8 @@
 import stringConverter
 import datetime
 import requests
+from bs4 import BeautifulSoup
+from datetime import datetime
 
 
 def findBlock(htmlText):
@@ -60,29 +62,45 @@ def getCurrentDateAndTime():
     return date, dayName, hour, minute
 
 
-def getHTMLText(station, date, hour, minute):
-    # loop through html responses until a cancelled connection is found
-    k = 0
-    while True:
-        # +2 für GCP +0 für local
-        time = f"{int(hour) + 2 + k}:{minute}"
+def getHTMLText(station):
+    URL = "https://dbf.finalrewind.org/{placeholder}"
+    resp = requests.get(URL.format(placeholder=station)).text
+    soup = BeautifulSoup(resp, "html.parser")
+    elements = soup.find(class_="cancelled")
 
-        # set up custom URL
-        URL = f"https://reiseauskunft.bahn.de/bin/bhftafel.exe/" \
-              f"dn?ld=43111&protocol=https:&rt=1&input={station}&" \
-              f"boardType=arr&time={time}%2B60&productsFilter=11111&&&" \
-              f"date={date}&&selectDate=&start=yes"
-        print(URL)
+    # get connection information
+    for elem in elements:
+        origin = elem.parent.get("data-from")
 
-        # get templates and find first cancelled train
-        resp = requests.get(URL)
-        htmlText = resp.text
+        # continue when station is origin
+        if origin == station:
+            continue
 
-        # find block with cancelled connection
-        departureStart = findBlock(htmlText)
-        if k == 8:
-            return "Sorry, no cancelled connection was found"
-        elif departureStart > 0:
-            return htmlText, departureStart
-        elif departureStart == -1:
-            k = k + 1
+        arrival_time = elem.parent.get("data-arrival")
+        link = elem.parent.find("a").get("href")
+        break
+
+    # get departure
+    if link:
+        link = URL.format(placeholder=link[1:])
+        resp = requests.get(link).text
+        soup = BeautifulSoup(resp, "html.parser")
+        elements = soup.find(class_="time-sched")
+        for elem in elements:
+            departure_time = elem
+    else:
+        return None
+
+    datetime.today().strftime('%Y-%m-%d')
+    result = {
+        "date": datetime.today().strftime('%d.%m.%y'),
+        "origin": origin,
+        "departure": departure_time,
+        "destination": station,
+        "arrival": arrival_time
+    }
+    return result
+
+
+if __name__ == "__main__":
+    print(getHTMLText("Frankfurt(Main)Hbf"))

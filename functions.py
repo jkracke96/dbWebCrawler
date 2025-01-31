@@ -4,38 +4,13 @@ from pymongo_connect import MongoDB
 
 
 def getCancelledConnection(station):
-    # today's date and current time
-    date = extractData.getCurrentDateAndTime()[0]
-    hour = extractData.getCurrentDateAndTime()[2]
-    minute = extractData.getCurrentDateAndTime()[3]
-
     # get html result based on custom url and find the connection block with the first cancelled connection
     # loop, if no cancellation was found
-    htmlResponse = extractData.getHTMLText(station, date, hour, minute)
+    output = extractData.getHTMLText(station)
 
-    if htmlResponse == "Sorry, no cancelled connection was found":
+    if output is None:
         return "Sorry, no cancelled connection was found"
-    htmlText = htmlResponse[0]
-    departureStart = htmlResponse[1]
 
-    # find origin station
-    originData = extractData.findOrigin(htmlText, departureStart)
-    departureTime = originData[0]
-    originStation = originData[1]
-    i = originData[2]
-
-    # find final destination
-    destinationData = extractData.findDestination(htmlText, i)
-    arrivalTime = destinationData[0]
-    finalDestination = destinationData[1]
-
-    output = {
-        "date": date,
-        "origin": originStation,
-        "departure": departureTime,
-        "destination": finalDestination,
-        "arrival": arrivalTime
-    }
     #firestoreConnect.writeToFirestore(output)
     connection = MongoDB()
     connection.write_to_db(output)
