@@ -5,3 +5,4 @@ Flask
 #firebase_admin
 pymongo
 python-dotenv
+beautifulsoup4
