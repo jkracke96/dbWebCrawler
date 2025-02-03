@@ -22,7 +22,7 @@ def dailySearch():
     stations = json.load(file)
     keys = stations.keys()
     for key in keys:
-        getCancelledConnection(stations[key][1])
+        getCancelledConnection(stations[key][0])
 
 
 if __name__ == "__main__":
